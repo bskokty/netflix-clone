@@ -5,18 +5,30 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import "./signUpScreen.css";
-import { async } from "@firebase/util";
 
 function SignUpScreen() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const register = (e) => {
-    e.preventDefault();
-  };
-  const signIn = async (e) => {
+  const register = async (e) => {
     e.preventDefault();
     try {
       const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+
+      const user = userCredential.user;
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const signIn = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         emailRef.current.value,
         passwordRef.current.value
