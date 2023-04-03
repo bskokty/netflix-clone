@@ -6,6 +6,7 @@ import "./ProfileScreen.css";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import acc_logo from "../../assets/img/Netflix-avatar.png";
+import PlansScreen from "../plans/PlansScreen";
 
 function ProfileScreen() {
   const user = useSelector(selectUser);
@@ -21,6 +22,7 @@ function ProfileScreen() {
             <h2>{user.email}</h2>
             <div className="profileScreen__plans">
               <h3>Plans</h3>
+              <PlansScreen />
               <button
                 className="profileScreen__signOut"
                 onClick={() => signOut(auth)}
