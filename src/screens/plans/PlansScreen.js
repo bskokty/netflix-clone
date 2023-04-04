@@ -6,6 +6,8 @@ import db from "../../firebase";
 import "./PlansScreen.css";
 import { loadStripe } from "@stripe/stripe-js";
 import { QuerySnapshot, onSnapshot, query, where } from "firebase/firestore";
+import dotenv from "dotenv";
+dotenv.config();
 
 function PlansScreen() {
   const user = useSelector(selectUser);
@@ -119,9 +121,7 @@ function PlansScreen() {
             alert(`An error occurred: ${error.message}`);
           }
           if (sessionId) {
-            const stripe = await loadStripe(
-              "pk_test_51IEI5GL98KWk4ZghR8ktgGjNAzsWR4uwsWDiTzAmgWmLpX0oTkHsKWoVGS7oCqcn09AKVjbm8SiDoMqnPoYnSRti00ojC5VfIM"
-            );
+            const stripe = await loadStripe(process.env.stripekey);
             stripe.redirectToCheckout({ sessionId });
           }
         }
